@@ -69,7 +69,8 @@ public class GunControlScript : MonoBehaviour {
 		int shownCharges = (int)Mathf.Floor(charge);
 		
 		GUI.Label(new Rect(0,0,100,40), shownCharges.ToString());
-		GUI.Label(new Rect(0,40,100,40), timePassed.ToString());
+		GUI.Label(new Rect(0,20,100,20), timePassed.ToString());
+		GUI.Label(new Rect(0,40,100,20), rechargeCounter.ToString());
 		
 	}
 }
