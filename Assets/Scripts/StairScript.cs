@@ -37,10 +37,16 @@ public class StairScript : RewindableScript {
 	public override void WillStopRewinding () 	{
 		base.WillStopRewinding ();
 		
+		foreach (Tweener tr in stairPieceTween) {
+			tr.Play();	
+		}
 	}
 	
 	public override void WillStartRewinding () 	{
 		base.WillStartRewinding ();
 		
+		foreach (Tweener tr in stairPieceTween) {
+			tr.Pause();	
+		}
 	}
 }

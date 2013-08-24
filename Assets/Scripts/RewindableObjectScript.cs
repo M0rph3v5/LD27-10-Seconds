@@ -10,8 +10,10 @@ public class RewindableObjectScript : RewindUnit {
 	public override void Start () {
 		base.Start();
 		
+		collection = (renderer == null);
+		
 		// if mesh renderer 
-		if (renderer != null) {
+		if (!collection) {
 			renderer.material.SetColor("_Color", new Color(0.85f,0.11f,0.11f,0));	
 		} else { // am I a collection ?
 			foreach (Transform to in transform) {
@@ -24,7 +26,7 @@ public class RewindableObjectScript : RewindUnit {
 	public void SetGlow (bool glow) {
 		_glow = glow;		
 		
-		if (renderer != null) {			
+		if (!collection) {			
 			Color originalColor = renderer.material.color;
 			renderer.material.SetColor("_Color", new Color(originalColor.r,originalColor.g,originalColor.b,glow ? 0.5f : 0));
 		} else {

@@ -35,25 +35,23 @@ public class GunControlScript : MonoBehaviour {
 		
 		if (Input.GetMouseButton(0) && charge > Time.fixedDeltaTime) {
 			if (_rewindingUnit) {
-				timePassed += Time.fixedDeltaTime;
-				
-				charge -= Time.fixedDeltaTime;
-				
+				timePassed += Time.fixedDeltaTime;				
+				charge -= Time.fixedDeltaTime;				
 			} else {
 				Camera mainCamera = Camera.main;
 				RaycastHit hit;
 		        if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit)) {
 		        	RewindableObjectScript rewindingUnit = hit.collider.gameObject.GetComponent<RewindableObjectScript>();
 					if (rewindingUnit == null) {
-						rewindingUnit = hit.collider.transform.parent.gameObject.GetComponent<RewindableObjectScript>();
+						if (hit.collider.transform.parent != null) {
+							rewindingUnit = hit.collider.transform.parent.gameObject.GetComponent<RewindableObjectScript>();								
+						}						
 					}
 					
-					if (rewindingUnit != null) {	
-						
+					if (rewindingUnit != null) {						
 						rewindingUnit.SetGlow(true);
 						rewindingUnit.StartRewind();
-						_rewindingUnit = rewindingUnit;
-						
+						_rewindingUnit = rewindingUnit;						
 					}
 				} 		
 			}
