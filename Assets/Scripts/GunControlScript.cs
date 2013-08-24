@@ -25,7 +25,7 @@ public class GunControlScript : MonoBehaviour {
 				charge -= Time.fixedDeltaTime;
 				
 			} else {
-				Camera mainCamera = Camera.mainCamera;
+				Camera mainCamera = Camera.main;
 				RaycastHit hit;
 		        if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit)) {
 		        	RewindUnit rewindingUnit = hit.collider.gameObject.GetComponent<RewindUnit>();				
