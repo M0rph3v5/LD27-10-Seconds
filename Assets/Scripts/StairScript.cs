@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Holoville.HOTween;
 
 public class StairScript : RewindableScript {
 	
@@ -9,11 +10,18 @@ public class StairScript : RewindableScript {
 	void Start () {
 		stairPieces = new List<GameObject>();
 		
+		TweenParms parms = new TweenParms();
+		
+		
 		for(int i = 0; i < transform.childCount; i++) {
-			stairPieces.Add((GameObject)transform.GetChild(i).gameObject);
+			GameObject gameObject = transform.GetChild(i).gameObject;
+			stairPieces.Add(gameObject);
+		
+			//parms.Prop("position", gameObject.transform + new Vector3(50, 0, 0));
+			//HOTween.To(gameObject.transform, 5, parms);
 		}
 		
-			
+		
 	}
 	
 	void Update () {
