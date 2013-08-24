@@ -31,9 +31,10 @@ public class GunControlScript : MonoBehaviour {
 		        	RewindUnit rewindingUnit = hit.collider.gameObject.GetComponent<RewindUnit>();				
 					
 					if (rewindingUnit != null) {					
-						Debug.Log("starting rewind");
+						SetAlphaForRewindingUnit(255, rewindingUnit);
 						rewindingUnit.StartRewind();
 						_rewindingUnit = rewindingUnit;
+						
 					}
 				} 		
 			}
@@ -43,8 +44,9 @@ public class GunControlScript : MonoBehaviour {
 			timePassed = 0;
 			
 			if (_rewindingUnit) {
-				Debug.Log("stopping rewind");
 				charge = (int)Mathf.Floor(charge);				
+				
+				SetAlphaForRewindingUnit(0, _rewindingUnit);
 				_rewindingUnit.StopRewind();
 				_rewindingUnit = null;
 				
@@ -61,6 +63,11 @@ public class GunControlScript : MonoBehaviour {
 		}
 		
     }
+	
+	void SetAlphaForRewindingUnit(float alpha, RewindUnit unit) {
+		Color originalColor = unit.renderer.material.color;
+		unit.renderer.material.SetColor("_Color", new Color(originalColor.r,originalColor.g,originalColor.b,alpha));	
+	}
 	
 	void OnGUI() {
 		
