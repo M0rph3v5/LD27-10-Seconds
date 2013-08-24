@@ -48,7 +48,7 @@ public class GunControlScript : MonoBehaviour {
 					
 					if (rewindingUnit != null) {					
 						SetAlphaForRewindingUnit(128, rewindingUnit);
-						//rewindingUnit.StartRewind();
+						rewindingUnit.StartRewind();
 						_rewindingUnit = rewindingUnit;
 						
 					}
@@ -63,7 +63,7 @@ public class GunControlScript : MonoBehaviour {
 				charge = (int)Mathf.Floor(charge);				
 				
 				SetAlphaForRewindingUnit(0, _rewindingUnit);
-				//_rewindingUnit.StopRewind();
+				_rewindingUnit.StopRewind();
 				_rewindingUnit = null;
 				
 				rechargeCounter = 0.0f;
