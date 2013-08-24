@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GunControlScript : MonoBehaviour {
 
-	RewindUnit _rewindingUnit;
+	RewindableObjectScript _rewindingUnit;
 	
 	int maxCharge = 9999;
 	float charge = 9999; //10.0f;	
@@ -35,22 +35,23 @@ public class GunControlScript : MonoBehaviour {
 		
 		if (Input.GetMouseButton(0) && charge > Time.fixedDeltaTime) {
 			if (_rewindingUnit) {
-				timePassed += Time.fixedDeltaTime;
-				
-				charge -= Time.fixedDeltaTime;
-				
-				
+				timePassed += Time.fixedDeltaTime;				
+				charge -= Time.fixedDeltaTime;				
 			} else {
 				Camera mainCamera = Camera.main;
 				RaycastHit hit;
 		        if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit)) {
-		        	RewindUnit rewindingUnit = hit.collider.gameObject.GetComponent<RewindUnit>();				
+		        	RewindableObjectScript rewindingUnit = hit.collider.gameObject.GetComponent<RewindableObjectScript>();
+					if (rewindingUnit == null) {
+						if (hit.collider.transform.parent != null) {
+							rewindingUnit = hit.collider.transform.parent.gameObject.GetComponent<RewindableObjectScript>();								
+						}						
+					}
 					
-					if (rewindingUnit != null) {					
-						SetAlphaForRewindingUnit(128, rewindingUnit);
+					if (rewindingUnit != null) {						
+						rewindingUnit.SetGlow(true);
 						rewindingUnit.StartRewind();
-						_rewindingUnit = rewindingUnit;
-						
+						_rewindingUnit = rewindingUnit;						
 					}
 				} 		
 			}
@@ -62,7 +63,7 @@ public class GunControlScript : MonoBehaviour {
 			if (_rewindingUnit) {
 				charge = (int)Mathf.Floor(charge);				
 				
-				SetAlphaForRewindingUnit(0, _rewindingUnit);
+				_rewindingUnit.SetGlow(false);
 				_rewindingUnit.StopRewind();
 				_rewindingUnit = null;
 				
@@ -79,11 +80,6 @@ public class GunControlScript : MonoBehaviour {
 		}
 		
     }
-	
-	void SetAlphaForRewindingUnit(float alpha, RewindUnit unit) {
-		Color originalColor = unit.renderer.material.color;
-		unit.renderer.material.SetColor("_Color", new Color(originalColor.r,originalColor.g,originalColor.b,alpha));	
-	}
 	
 	void OnGUI() {
 		
