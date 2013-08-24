@@ -4,16 +4,31 @@ using System.Collections;
 public class GunControlScript : MonoBehaviour {
 
 	RewindUnit _rewindingUnit;
-	int maxCharge = 10;
-	float charge = 10.0f;
 	
+	int maxCharge = 9999;
+	float charge = 9999; //10.0f;	
 	float rechargeDelay = 3.0f;
 	float rechargeCounter = 0.0f;
 	
-	float timePassed;
+	float timePassed; // debug
+	
+	LineRenderer line;
 	
 	void Start () {
+		line = GetComponent<LineRenderer>();
+		line.enabled = false;
+		line.SetWidth(0.1f, 0.1f);	
+		line.SetVertexCount(2);
+	}
 	
+	void Update() {
+		if (_rewindingUnit) {
+			line.enabled = true;
+			line.SetPosition(0, transform.position);
+			line.SetPosition(1, _rewindingUnit.transform.position);	
+		} else {
+			line.enabled = false;
+		}
 	}
 	
 	void FixedUpdate() {
@@ -24,6 +39,7 @@ public class GunControlScript : MonoBehaviour {
 				
 				charge -= Time.fixedDeltaTime;
 				
+				
 			} else {
 				Camera mainCamera = Camera.main;
 				RaycastHit hit;
@@ -31,7 +47,7 @@ public class GunControlScript : MonoBehaviour {
 		        	RewindUnit rewindingUnit = hit.collider.gameObject.GetComponent<RewindUnit>();				
 					
 					if (rewindingUnit != null) {					
-						SetAlphaForRewindingUnit(255, rewindingUnit);
+						SetAlphaForRewindingUnit(128, rewindingUnit);
 						rewindingUnit.StartRewind();
 						_rewindingUnit = rewindingUnit;
 						
