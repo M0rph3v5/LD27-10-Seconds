@@ -16,7 +16,6 @@ public class RewindableScript : MonoBehaviour {
 	}
 	
 	public virtual void WillStartRewinding () { // do your stuff to prepare for this
-		Debug.Log("willstart rewidnngin");
 		isRewinding = true;
 	}
 	
