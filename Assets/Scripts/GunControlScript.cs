@@ -44,9 +44,7 @@ public class GunControlScript : MonoBehaviour {
 			
 			if (_rewindingUnit) {
 				Debug.Log("stopping rewind");
-				Debug.Log(charge);
-				charge = (int)Mathf.Floor(charge);
-				Debug.Log(charge);
+				charge = (int)Mathf.Floor(charge);				
 				_rewindingUnit.StopRewind();
 				_rewindingUnit = null;
 				
