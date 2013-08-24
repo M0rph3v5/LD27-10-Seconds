@@ -1,6 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/RewindableScript.cs">
+    <Files>
+      <File FileName="Assets/Scripts/RewindableScript.cs" Line="21" Column="2" />
+      <File FileName="Assets/Scripts/GunControlScript.cs" Line="1" Column="1" />
+      <File FileName="Assets/RewindManager/Scripts/RewindUnit.cs" Line="157" Column="28" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
