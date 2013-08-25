@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GUIScript : MonoBehaviour {
-
+public class CollisionSwitch : MonoBehaviour {
+	
+	public BridgeScript bridge;
+	
 	// Use this for initialization
 	void Start () {
-		
+	
 	}
 	
 	// Update is called once per frame
@@ -13,9 +15,7 @@ public class GUIScript : MonoBehaviour {
 	
 	}
 	
-	void OnGUI () {
-		
-		
-		
+	void OnTriggerExit(Collider other) {
+		bridge.StartDestruction();
 	}
 }
