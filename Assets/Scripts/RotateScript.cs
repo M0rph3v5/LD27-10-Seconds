@@ -19,9 +19,8 @@ public class RotateScript : RewindableScript {
 		transform.Rotate(0, Time.deltaTime * 20.0f, 0, Space.World);
 	}
 	
-	public override void WillStopRewinding () 	{
-		base.WillStopRewinding ();
-		
+	public override void WillStopRewinding (float elapsedTime) 	{
+		base.WillStopRewinding (elapsedTime);		
 	}
 	
 	public override void WillStartRewinding () 	{
