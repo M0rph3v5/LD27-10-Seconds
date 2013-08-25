@@ -42,10 +42,14 @@ public class GunControlScript : MonoBehaviour {
 				RaycastHit hit;
 		        if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit)) {
 		        	RewindableObjectScript rewindingUnit = hit.collider.gameObject.GetComponent<RewindableObjectScript>();
-					if (rewindingUnit == null) {
+
+					if (rewindingUnit != null) { // check for parent					
 						if (hit.collider.transform.parent != null) {
-							rewindingUnit = hit.collider.transform.parent.gameObject.GetComponent<RewindableObjectScript>();								
-						}						
+							RewindableObjectScript parentRewindingUnit = hit.collider.transform.parent.gameObject.GetComponent<RewindableObjectScript>();
+							if (parentRewindingUnit != null) {
+								rewindingUnit = parentRewindingUnit;
+							}
+						}
 					}
 					
 					if (rewindingUnit != null) {						

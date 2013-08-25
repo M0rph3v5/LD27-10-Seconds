@@ -173,7 +173,7 @@ public class HOTweenEditor : EditorWindow, IHOTweenPanel
             hasStarted = true;
             Disable(DisabledReason.NotInitialized);
         } else {
-            HOTweenManager[] tms = FindSceneObjectsOfType(typeof(HOTweenManager)) as HOTweenManager[];
+            HOTweenManager[] tms = FindObjectsOfType(typeof(HOTweenManager)) as HOTweenManager[];
             if (tms.Length > 0) {
                 if (IsSingleManager()) {
                     Enable(tms[0]);
@@ -209,7 +209,7 @@ public class HOTweenEditor : EditorWindow, IHOTweenPanel
     /// </summary>
     private bool IsSingleManager()
     {
-        HOTweenManager[] tms = FindSceneObjectsOfType(typeof(HOTweenManager)) as HOTweenManager[];
+        HOTweenManager[] tms = FindObjectsOfType(typeof(HOTweenManager)) as HOTweenManager[];
         if (tms == null) return false;
         if (tms.Length > 1) {
             twManagersGOs = new GameObject[tms.Length];

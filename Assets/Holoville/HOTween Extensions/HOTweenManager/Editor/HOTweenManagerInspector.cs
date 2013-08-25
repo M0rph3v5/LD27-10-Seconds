@@ -111,7 +111,7 @@ public class HOTweenManagerInspector : Editor
 	
 	private bool IsSingleManager()
 	{
-		HOTweenManager[] tms = FindSceneObjectsOfType( typeof( HOTweenManager ) ) as HOTweenManager[];
+		HOTweenManager[] tms = FindObjectsOfType( typeof( HOTweenManager ) ) as HOTweenManager[];
 		if ( tms != null && tms.Length > 1 ) {
 			twManagersGOs = new GameObject[tms.Length];
 			for ( int i = 0; i < tms.Length; ++i )		twManagersGOs[i] = tms[i].gameObject;
