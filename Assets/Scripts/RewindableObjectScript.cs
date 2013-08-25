@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 public class RewindableObjectScript : RewindUnit {
 	
 	public bool collection = false;
 	public bool _glow = false;
+	
+	List<GameObject> rewindUnits;
 	
 	RewindManager _rm;
 	
@@ -19,8 +23,12 @@ public class RewindableObjectScript : RewindUnit {
 		if (!collection) {
 			renderer.material.SetColor("_Color", new Color(0.85f,0.11f,0.11f,0));	
 		} else { // am I a collection ?
+			rewindUnits = new List<GameObject>();
 			foreach (Transform to in transform) {
-				to.gameObject.renderer.material.SetColor("_Color", new Color(0.85f,0.11f,0.11f,0));
+				if (to.gameObject.GetComponent<RewindUnit>() != null) {
+					to.gameObject.renderer.material.SetColor("_Color", new Color(0.85f,0.11f,0.11f,0));	
+					rewindUnits.Add(to.gameObject);
+				}
 			}
 		}
 		
@@ -49,7 +57,13 @@ public class RewindableObjectScript : RewindUnit {
 			rs.WillStartRewinding();	
 		}
 		
-		_rm.RewUnits.Add(gameObject);
+		if (collection) {
+			_rm.RewUnits.AddRange(rewindUnits);
+		} else {
+			_rm.RewUnits.Add(gameObject);	
+		}
+		
+		
 		RewindManager.StartRewind();
 	}
 	
@@ -63,6 +77,11 @@ public class RewindableObjectScript : RewindUnit {
 		}
 		
 		RewindManager.StopRewind();
-		_rm.RewUnits.Remove(gameObject);		
+		
+		if (collection) {
+			_rm.RewUnits.RemoveAll(rewindUnits.Contains);
+		} else {
+			_rm.RewUnits.Remove(gameObject);	
+		}
 	}
 }
