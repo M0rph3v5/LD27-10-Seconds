@@ -19,7 +19,7 @@ public class RewindableScript : MonoBehaviour {
 		isRewinding = true;
 	}
 	
-	public virtual void WillStopRewinding () { // resume whatever you had running
+	public virtual void WillStopRewinding (float elapsedTime) { // resume whatever you had running
 		isRewinding = false;
 	}
 

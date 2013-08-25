@@ -62,13 +62,11 @@ public class GunControlScript : MonoBehaviour {
 			
 		} else {
 			
-			timePassed = 0;
-			
 			if (_rewindingUnit) {
 				charge = (int)Mathf.Floor(charge);				
 				
 				_rewindingUnit.SetGlow(false);
-				_rewindingUnit.StopRewind();
+				_rewindingUnit.StopRewind(timePassed);
 				_rewindingUnit = null;
 				
 				rechargeCounter = 0.0f;
@@ -81,6 +79,7 @@ public class GunControlScript : MonoBehaviour {
 				}
 			}
 			
+			timePassed = 0;
 		}
 		
     }

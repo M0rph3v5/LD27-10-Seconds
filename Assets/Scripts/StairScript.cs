@@ -30,15 +30,16 @@ public class StairScript : RewindableScript {
 		}
 	}
 	
-	void Update () {
+	public override void WillStopRewinding (float elapsedTime) 	{
+		base.WillStopRewinding (elapsedTime);
 		
-	}
-	
-	public override void WillStopRewinding () 	{
-		base.WillStopRewinding ();
-		
-		foreach (Tweener tr in stairPieceTween) {
-			tr.Play();	
+		foreach (Tweener tr in stairPieceTween) {			
+			float modifiedByElapsedTime = (tr.isLoopingBack ? tr.elapsed+tr.duration : tr.elapsed )  - elapsedTime;
+			while (modifiedByElapsedTime < 0) {
+				modifiedByElapsedTime = (tr.duration*2) + modifiedByElapsedTime; // duration excludes looptypes
+			}
+			
+			tr.GoToAndPlay(modifiedByElapsedTime);
 		}
 	}
 	

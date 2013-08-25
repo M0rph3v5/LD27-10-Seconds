@@ -67,13 +67,13 @@ public class RewindableObjectScript : RewindUnit {
 		RewindManager.StartRewind();
 	}
 	
-	public void StopRewind() {
+	public void StopRewind(float elapsedTime) {
 		if (!RewindManager.RewindStarted)
 			return;
 	
 		RewindableScript rs = GetComponent<RewindableScript>();
 		if (rs != null) {
-			rs.WillStopRewinding();	
+			rs.WillStopRewinding(elapsedTime);
 		}
 		
 		RewindManager.StopRewind();
