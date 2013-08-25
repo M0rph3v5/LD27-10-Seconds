@@ -12,6 +12,8 @@ public class GunControlScript : MonoBehaviour {
 	
 	float timePassed; // debug
 	
+	Vector3 targetHit;
+	
 	LineRenderer line;
 	
 	void Start () {
@@ -25,7 +27,7 @@ public class GunControlScript : MonoBehaviour {
 		if (_rewindingUnit) {
 			line.enabled = true;
 			line.SetPosition(0, transform.position);
-			line.SetPosition(1, _rewindingUnit.transform.position);	
+			line.SetPosition(1, targetHit);	
 		} else {
 			line.enabled = false;
 		}
@@ -55,6 +57,7 @@ public class GunControlScript : MonoBehaviour {
 					if (rewindingUnit != null) {						
 						rewindingUnit.SetGlow(true);
 						rewindingUnit.StartRewind();
+						targetHit = hit.point;
 						_rewindingUnit = rewindingUnit;						
 					}
 				} 		
