@@ -22,7 +22,7 @@ public class StairScript : RewindableScript {
 			GameObject gameObject = child.gameObject;
 			stairPieces.Add(gameObject);
 		
-			parms.Prop("position", gameObject.transform.position + new Vector3(-5, 0, 0));			
+			parms.Prop("localPosition", gameObject.transform.localPosition + new Vector3(-5, 0, 0));			
 			parms.Delay(i*0.2f);			
 			Tweener tweener = HOTween.To(gameObject.transform, 1, parms);
 			stairPieceTween.Add(tweener);

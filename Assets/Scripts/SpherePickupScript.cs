@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Holoville.HOTween;
 
 public class SpherePickupScript : MonoBehaviour {
 	
@@ -7,7 +8,13 @@ public class SpherePickupScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		gameManager = GameManager.gameObj.GetComponent<GameManager>();
+		GameObject gameObj = GameManager.gameObj;
+		if (gameObj != null)
+			gameManager = gameObj.GetComponent<GameManager>();
+		
+		HOTween.To (transform, 1.0f, 
+			new TweenParms().Prop("position", transform.position + new Vector3(0, 0.1f, 0))
+				.Loops(-1, LoopType.Yoyo).Ease (EaseType.EaseInElastic));
 	}
 	
 	// Update is called once per frame

@@ -4,33 +4,49 @@ using System.Collections;
 public class GameManager : MonoBehaviour {
 	
 	public static GameObject gameObj;
-	int score = 0;
-	int timer = 10;
-	bool gameOver = false;
+	public static int score = 0;
+	public static int timer = 10;
+	public static int totalTimer = 0;
+	public static bool gameOver = false;
 	
 	// Use this for initialization
 	void Start () {
 		gameObj = gameObject;
-		Object.DontDestroyOnLoad(gameObj);
-		InvokeRepeating("checkTimer", 1.0f, 1.0f);
+		initGame();
+	}
+	
+	void initGame() {
+		score = 0;
+		timer = 10;
+		totalTimer = timer;
+		gameOver = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (!gameOver) return;
 		
-		if (Application.loadedLevelName == "Game") {
+		if (Input.GetKey (KeyCode.Escape)) {
+			Application.Quit();
+			return;
+		}
+		
+		if (gameOver)
 			Application.LoadLevel("Gameover");
-		}
+	}
+	
+	float timeElapsed = 0.0f;
+	
+	void FixedUpdate() {
+		timeElapsed += Time.deltaTime;
 		
-		if (Application.loadedLevelName == "Gameover") {
-			if (Input.GetKey (KeyCode.Escape)) {
-				Application.Quit();
-			}
-			else if (Input.anyKey) {
-				Application.LoadLevel("Game");
-			}
+		if (!gameOver && timeElapsed > 1.0f) {
+			checkTimer();
+			timeElapsed = 0.0f;
 		}
+	}
+	
+	void resetGame() {
+		Application.LoadLevel("Game");
 	}
 	
 	void checkTimer() {
@@ -45,10 +61,6 @@ public class GameManager : MonoBehaviour {
 	public void IncreaseScore() {
 		score++;
 		timer += 10;
-	}
-	
-	void OnGUI() {
-		GUI.Label(new Rect(10, 10, 200, 50), score.ToString());
-		GUI.Label (new Rect(500, 10, 200, 50), timer.ToString());
+		totalTimer += 10;
 	}
 }
