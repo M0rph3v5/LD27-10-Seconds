@@ -12,9 +12,9 @@ public class SpherePickupScript : MonoBehaviour {
 		if (gameObj != null)
 			gameManager = gameObj.GetComponent<GameManager>();
 		
-		HOTween.To (transform, 1.0f, 
-			new TweenParms().Prop("position", transform.position + new Vector3(0, 0.1f, 0))
-				.Loops(-1, LoopType.Yoyo).Ease (EaseType.EaseInElastic));
+		HOTween.To (transform, 2.5f, 
+			new TweenParms().Prop("position", transform.position + new Vector3(0, 0.2f, 0))
+				.Loops(-1, LoopType.Yoyo).Ease (EaseType.EaseInOutSine));
 	}
 	
 	// Update is called once per frame

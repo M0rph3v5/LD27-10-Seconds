@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class GUIScript : MonoBehaviour {
+	
+	public GUIText finalScore = null;
 
 	// Use this for initialization
 	void Start () {
@@ -14,6 +16,9 @@ public class GUIScript : MonoBehaviour {
 				Application.LoadLevel("Game");
 			}
 		}
+		
+		if (finalScore != null)
+			finalScore.text = "Score: " + GameManager.score.ToString();
 	}
 	
 	void OnGUI() {
